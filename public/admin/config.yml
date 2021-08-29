@@ -1,0 +1,130 @@
+backend:
+  name: git-gateway
+  # repo: PiyushIngale007/mygatsbysite
+  branch: main # Branch to update (optional; defaults to master)
+publish_mode: editorial_workflow
+# These lines should *not* be indented
+media_folder: "static/images/uploads" # Media files will be stored in the repo under static/images/uploads
+public_folder: "/images/uploads" # The src attribute for uploaded media will begin with /images/uploads
+collections:
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog
+    label: "Blog" # Used in the UI
+    folder: "_posts/blog" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template, e.g., YYYY-MM-DD-title.md
+    fields: # The fields for each document, usually in front matter
+      - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Sub-Title",
+          name: "subtitle",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - {
+          label: "Featured Image",
+          name: "thumbnail",
+          widget: "image",
+          required: false,
+        }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "PracticeTemplate"
+    label: "Practice"
+    folder: "practice/PracticeTemplate"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields for each document, usually in front matter
+      - { label: "Draft", name: "draft", widget: "boolean", default: true }
+      - label: "Code"
+        name: "code"
+        widget: "code"
+      - {
+          label: "Color",
+          name: "color",
+          widget: "color",
+          enableAlpha: true,
+          allowInput: true,
+        }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - label: "Manual PDF"
+        name: "manual_pdf"
+        widget: "file"
+        default: "/uploads/general-manual.pdf"
+        media_library:
+          config:
+            multiple: true
+      - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
+      - label: "Featured Image"
+        name: "thumbnail"
+        widget: "image"
+        choose_url: true
+        default: "/uploads/chocolate-dogecoin.jpg"
+        media_library:
+          config:
+            multiple: true
+      - { label: "Location", name: "location", widget: "map" }
+      - { label: "Blog post content", name: "body", widget: "markdown" }
+      - label: "Profile"
+        name: "profile"
+        widget: "object"
+        summary: "{{fields.name}}: {{fields.birthdate}}"
+        fields:
+          - {
+              label: "Public",
+              name: "public",
+              widget: "boolean",
+              default: true,
+            }
+          - { label: "Name", name: "name", widget: "string" }
+          - label: "Birthdate"
+            name: "birthdate"
+            widget: "date"
+            default: ""
+            format: "MM/DD/YYYY"
+          - label: "Address"
+            name: "address"
+            widget: "object"
+            collapsed: true
+            fields:
+              - { label: "Street Address", name: "street", widget: "string" }
+              - { label: "City", name: "city", widget: "string" }
+              - { label: "Postal Code", name: "post-code", widget: "string" }
+  - name: "events"
+    label: "Events"
+    folder: "src/data/events"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "blog" }
+      - label: "Header"
+        name: "header"
+        widget: "object"
+        fields:
+          - { label: "title", name: "Title", widget: "string" }
+          - {
+              label: "Sub-Title",
+              name: "subtitle",
+              widget: "string",
+              required: false,
+            }
+      - {
+          label: "Sub-Title",
+          name: "subtitle",
+          widget: "string",
+          required: false,
+        }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - label: "Event-Date"
+        name: "eventdate"
+        widget: "date"
+        default: ""
+        format: "MMM Do YY"
+        required: false
+      - label: "Gallery"
+        name: "galleryImages"
+        widget: "list"
+        summary: "{{fields.image}}"
+        field: { label: Image, name: image, widget: image }
+      - { label: "Body", name: "body", widget: "markdown" }

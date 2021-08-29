@@ -2,4 +2,4 @@
 deployment:
  tasks:
  - export DEPLOYPATH=/home/pccoerhostingacm/repositories/GatsbySite
- - /bin/cp public/index.html $DEPLOYPATH
+- /bin/cp -R * $DEPLOYPATH
